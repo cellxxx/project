@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Главная страница</title>
+<meta name='viewport' content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no'/>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</head>
+<body>
+    <main>
+  <header class="p-3 bg-primary" >
+    <div class="container">
+      <div>
+              <ul>
+                <li>
+                  <%= link_to '#', class: "nav-link px-2 dropdown-toggle text-white", data: {"bs-toggle": "dropdown"} do %>
+                    <%= tag.div '', class: "flag #{I18n.locale}-flag mt-1" %>
+                    <%= t I18n.locale %>
+                  <% end %>
+                  <ul class="dropdown-menu">
+                    <% I18n.available_locales.each do |locale| %>
+                      <li>
+                        <% if I18n.locale == locale %>
+                          <%= tag.span t(locale), class: "dropdown-item" %>
+                        <% else %>
+                          <%= link_to t(locale), root_path(locale: locale), class: "dropdown-item" %>
+                        <% end %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </li>
+              </ul>
+        <div class="d-flex flex-column text-dark" style = width: 100px>
+          <% if signed_in? %>
+              <a class="bg-success text-white btn btn-outline-light p-2 bd-highlight" style="width: 90px; height: 40px"  href=<%=session_update_path%>><%= current_user.username%></a>
+              <a class="bg-dark text-white btn btn-warning p-2 bd-highlight" style="width: 90px; height: 40px" href=<%=session_logout_path%>><%= t 'posts.index.logout' %></a>
+            <% else %>
+              <a class="bg-dark text-white btn btn-warning p-2 bd-highlight" style="width: 90px; height: 40px" href=<%=session_login_path%>><%= t 'posts.index.login' %></a>
+            <% end %>
+        </div>
+      </div>
+    </div>
+  </header>
+  </main>
+  <div class="b-example-divider"><hr class="col-xs-12"></div>
+
+    <div class="container">
+      <div class="col-md-12">
+        <div class="card flex-md-row mb-4 box-shadow h-md-250">
+          <div class="card-body d-flex flex-column align-items-start">
+            <h3 class="mb-0">
+              <h3 class="text-dark"> <%= @post.title %> </h3>
+            </h3>
+            <div class="mb-1 text-muted"> <%= @post.created_at.strftime("%d-%m-%Y") %> : <%= @post.user_id%> </div>
+            <p class="card-text mb-auto"><%= @post.text %></p>
+        </div>
+      </div>
+      <% if @post.avatar.attached? %>
+        <img class="card-img-top" src="<%= url_for(@post.avatar) %>">
+      <% end %>
+    </div>
+
+    <% if @post.user_id == current_user[:username] %>
+      <%= link_to t('posts.show.edit'), edit_post_path(@post) %>
+    <% end %>
+    |
+    <%= link_to t('posts.show.back'), posts_path %>
+
+    <div class="container mt-1">
+        <div class="row">
+            <div class="col-10">
+
+                <%= form_for @post, :remote => true, method: :get do |form| %>
+                   <div class="form-group mt-1">
+                        <%= form.text_area :comment, :class=>"form-control", :required=>true %>
+                    </div>
+
+                    <%= form.submit t('posts.show.new_comment'), :class=>"btn btn-primary mt-1" %>
+                <% end %>
+            </div>
+        </div>
+    </div>
+    
+    <div id="result">
+      
+      <div class="container mt-1">
+        <div class="col-5">
+        <% @post.comments&.split&.map(&:to_i)&.each do |comment_id|%>
+          <% if comment_id != 0 %>
+          <div class="col-md-12">
+            <div class="card flex-md-row mb-4 box-shadow h-md-120">
+              <div class="card-body d-flex flex-column align-items-start">
+
+                <h5 class="mb-0">
+                  <h5 class="text-dark"> <%= comment_author(comment_id) %> </h3>
+                </h5>
+                <div class="mb-1 text-muted"> <%= comment_created_at(comment_id).strftime("%d-%m-%Y") %> </div>
+                <p class="card-text mb-auto"><%= comment_text(comment_id) %></p>
+
+            </div>
+          </div>
+          <% end %>
+        </div>
+        <% end %>
+        </div>
+      </div>
+
+    </div>
+    
+</body>
+</html>

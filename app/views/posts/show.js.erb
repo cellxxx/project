@@ -1,0 +1,25 @@
+var res = `<div class="container mt-1">
+        <div class="col-5">
+        <% @post.comments&.split&.map(&:to_i)&.each do |comment_id|%>
+          <% if comment_id != 0 %>
+          <div class="col-md-12">
+            <div class="card flex-md-row mb-4 box-shadow h-md-120">
+              <div class="card-body d-flex flex-column align-items-start">
+
+                <h5 class="mb-0">
+                  <h5 class="text-dark"> <%= comment_author(comment_id) %> </h3>
+                </h5>
+                <div class="mb-1 text-muted"> <%= comment_created_at(comment_id).strftime("%d-%m-%Y") %> </div>
+                <p class="card-text mb-auto"><%= comment_text(comment_id) %></p>
+
+            </div>
+          </div>
+          <% end %>
+        </div>
+        <% end %>
+        </div>
+      </div> `;
+
+document.querySelector('#result').innerHTML = res;
+
+document.querySelector('#post_comment').value = '';

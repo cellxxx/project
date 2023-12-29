@@ -1,0 +1,54 @@
+ru:
+  en: "Английский"
+  ru: "Русский"
+  posts:
+    edit:
+      edit_post: "Редактировать Пост"
+      to_home: "На Главную"
+      title: "Название"
+      text: "Содержание"
+      delete_post: "Удалить Пост"
+      delete_img: "Удалить Фото"
+      save_result: "Сохранить Результат"
+      sure: "Вы уверены?"
+    index:
+      hello: "Сап Двач!"
+      logout: "Выйти"
+      login: "Войти"
+      open: "Открыть"
+      create: "Создать Пост"
+    new:
+      create_post: "Создать Пост"
+      to_home: "На Главную"
+      title: "Название"
+      text: "Содержание"
+      create_post: "Создать Пост"
+    show:
+      hello: "Сап Двач!"
+      logout: "Выйти"
+      login: "Войти"
+      edit: "Редактировать"
+      back: "Назад"
+      new_comment: "Новый Комментарий"
+  session:
+    login:
+      hello: "Пожалуйста, авторизуйтесь"
+      login: "Логин"
+      registrate: "Зарегистрироваться"
+      secure: "Мы никому ничего не расскажем"
+      password: "Пароль"
+      submit: "Войти"
+      remember_me: "Запомнить меня"
+    registrate:
+      hello: "Пожалуйста, зарегистрируйтесь"
+      login: "Войти"
+      password: "Пароль"
+      password_confirm: "Подтверждение Пароля"
+      reg: "Регистрация"
+  users:
+    edit:
+      settings: "Настройки"
+      to_home: "На Главную"
+      username: "Имя Пользователя"
+      confirm: "Подтвердить Изменения"
+

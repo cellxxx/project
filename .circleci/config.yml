@@ -1,0 +1,41 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/my-app
+    docker:
+      - image: circleci/ruby:2.7.0-node-browsers
+        environment:
+          BUNDLE_RETRY: 3
+          BUNDLE_PATH: vendor/bundle
+          RAILS_ENV: test
+    steps:
+      - checkout
+
+      # Install dependencies for Ruby Gems
+      - restore_cache:
+          keys:
+            - my-app-bundle-v1-{{ checksum "Gemfile.lock" }}
+            - my-app-bundle-v1-
+
+      - run:
+          name: Configure Bundler
+          command: |
+            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
+            source $BASH_ENV
+      - run:
+          name: Install and Tests
+          command: |
+            gem install bundler
+            bundle install
+            bundle exec rails test
+
+      - save_cache:
+          key: my-app-bundle-v1-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      # Run test suits
+      - run:
+          name: Run rubocop in parallel
+          command: bundle exec rubocop --parallel --config .rubocop.yml
+          

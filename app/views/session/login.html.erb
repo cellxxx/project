@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  </head>
+
+  <body>
+
+    <div class="container">
+        <header class="blog-header py-3">
+            <div class="row flex-nowrap justify-content-between align-items-center border-bottom">
+                <div class="col-4 pt-1">
+                    <ul class="nav col-12 col-lg-auto mb-2 mb-mb-0">
+                    <li>
+                        <%= link_to '#', class: "nav-link px-2 dropdown-toggle text-black", data: {"bs-toggle": "dropdown"} do %>
+                        <%= tag.div '', class: "flag #{I18n.locale}-flag mt-1" %>
+                        <%= t I18n.locale %>
+                        <% end %>
+                        <ul class="dropdown-menu">
+                        <% I18n.available_locales.each do |locale| %>
+                            <li>
+                            <% if I18n.locale == locale %>
+                                <%= tag.span t(locale), class: "dropdown-item" %>
+                            <% else %>
+                                <%= link_to t(locale), session_login_path(locale: locale), class: "dropdown-item" %>
+                            <% end %>
+                            </li>
+                        <% end %>
+                        </ul>
+
+                    </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <div class="text-center">
+            <form class="form-signin" action="<%= session_create_url %>">
+            <h1 class="h3 c font-weight-normal"><%= t 'session.login.hello' %></h1>
+            
+            <label for="inputEmail" class="sr-only"><%= t 'session.login.login' %></label>
+            <input name="login" type="login" id="inputEmail" class="form-control" placeholder="<%= t 'session.login.login' %>" required autofocus>
+            <label for="inputPassword" class="sr-only"><%= t 'session.login.password' %></label>
+            
+            <input name="password" type="password" id="inputPassword" class="form-control w-25" placeholder="<%= t 'session.login.password' %>" required>
+            <div class="checkbox mb-3">
+                <label>
+                <input type="checkbox" value="remember-me"> <%= t 'session.login.remember_me' %>
+                </label>
+            </div>
+            
+            <button class="btn btn-lg btn-primary btn-block" type="submit"> <%= t 'session.login.submit' %> </button>
+            
+            <div class="row">
+                <%= link_to t('session.login.registrate'), session_registrate_path %>
+            </div>
+
+            <p class="mt-5 mb-3 text-muted">&copy; 2021-2022</p>
+            </form>
+        </div>
+    </div>
+
+  </body>
+</html>

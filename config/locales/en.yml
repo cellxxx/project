@@ -1,0 +1,54 @@
+en:
+  en: "English"
+  ru: "Russian"
+  posts:
+    edit:
+      edit_post: "Edit Post"
+      to_home: "Home"
+      title: "Title"
+      text: "Text"
+      delete_post: "Delete Post"
+      delete_img: "Delete Image"
+      save_result: "Save Result"
+      sure: "Are you sure?"
+    index:
+      hello: "Sap Dvach!"
+      logout: "Logout"
+      login: "Login"
+      open: "Open"
+      create: "Create Post"
+    new:
+      create_post: "Create Post"
+      to_home: "Home"
+      title: "Title"
+      text: "Text"
+      create_post: "Create Post"
+    show:
+      hello: "Sap Dvach!"
+      logout: "Logout"
+      login: "Login"
+      edit: "Edit"
+      back: "Back"
+      new_comment: "New Comment"
+  session:
+    login:
+      hello: "Please sign in"
+      login: "Login"
+      registrate: "Registrate"
+      secure: "We'll never share your login with anyone else."
+      password: "Password"
+      submit: "Sign in"
+      remember_me: "Remember me"
+    registrate:
+      hello: "Please registrate"
+      login: "Login"
+      password: "Password"
+      password_confirm: "Password Confirm"
+      reg: "Registrate"
+  users:
+    edit:
+      settings: "Settings"
+      to_home: "Home"
+      username: "Username"
+      confirm: "Confirm Changes"
+
